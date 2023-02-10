@@ -8,9 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +25,11 @@ public class DatabaseQueryService {
         ArrayList<LongestProject> result = new ArrayList<>();
 
         try (Connection connection = Database.getInstance().getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                Path path = Paths.get(FIND_LONGEST_PROJECT_PATH);
-                ResultSet resultSet = statement.executeQuery(Files.readString(path, StandardCharsets.UTF_8));
+            Path path = Paths.get(FIND_LONGEST_PROJECT_PATH);
+            String query = Files.readString(path, StandardCharsets.UTF_8);
 
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     LongestProject longestProject = new LongestProject(
                             resultSet.getLong("id"),
@@ -47,9 +48,11 @@ public class DatabaseQueryService {
         ArrayList<MaxProjectsClient> result = new ArrayList<>();
 
         try (Connection connection = Database.getInstance().getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                Path path = Paths.get(FIND_MAX_PROJECTS_CLIENT_PATH);
-                ResultSet resultSet = statement.executeQuery(Files.readString(path, StandardCharsets.UTF_8));
+            Path path = Paths.get(FIND_MAX_PROJECTS_CLIENT_PATH);
+            String query = Files.readString(path, StandardCharsets.UTF_8);
+
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
                     MaxProjectsClient longestProject = new MaxProjectsClient(
@@ -68,9 +71,11 @@ public class DatabaseQueryService {
         ArrayList<MaxSalaryWorker> result = new ArrayList<>();
 
         try (Connection connection = Database.getInstance().getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                Path path = Paths.get(FIND_MAX_SALARY_WORKER_PATH);
-                ResultSet resultSet = statement.executeQuery(Files.readString(path, StandardCharsets.UTF_8));
+            Path path = Paths.get(FIND_MAX_SALARY_WORKER_PATH);
+            String query = Files.readString(path, StandardCharsets.UTF_8);
+
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
                     MaxSalaryWorker longestProject = new MaxSalaryWorker(
@@ -89,9 +94,11 @@ public class DatabaseQueryService {
         ArrayList<YoungestEldestWorkers> result = new ArrayList<>();
 
         try (Connection connection = Database.getInstance().getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                Path path = Paths.get(FIND_YOUNGEST_ELDEST_WORKERS_PATH);
-                ResultSet resultSet = statement.executeQuery(Files.readString(path, StandardCharsets.UTF_8));
+            Path path = Paths.get(FIND_YOUNGEST_ELDEST_WORKERS_PATH);
+            String query = Files.readString(path, StandardCharsets.UTF_8);
+
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
                     YoungestEldestWorkers longestProject = new YoungestEldestWorkers(
@@ -111,9 +118,11 @@ public class DatabaseQueryService {
         ArrayList<ProjectPrices> result = new ArrayList<>();
 
         try (Connection connection = Database.getInstance().getConnection()) {
-            try (Statement statement = connection.createStatement()) {
-                Path path = Paths.get(PRINT_PROJECT_PRICES_PATH);
-                ResultSet resultSet = statement.executeQuery(Files.readString(path, StandardCharsets.UTF_8));
+            Path path = Paths.get(PRINT_PROJECT_PRICES_PATH);
+            String query = Files.readString(path, StandardCharsets.UTF_8);
+
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
                     ProjectPrices longestProject = new ProjectPrices(
